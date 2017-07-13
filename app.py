@@ -17,8 +17,7 @@ import dash_html_components as html
 # Setup the app
 server = flask.Flask(__name__)
 server.secret_key = os.environ.get('secret_key', 'secret')
-app = dash.Dash(__name__, server=server)
-# app = Dash(__name__, server=server, url_base_pathname='/dash/gallery/recession-report/', csrf_protect=False)
+app = dash.Dash(__name__, server=server, url_base_pathname='/dash/gallery/yield-curve/', csrf_protect=False)
 
 app.css.append_css({
     'external_url': (
@@ -27,6 +26,10 @@ app.css.append_css({
     )
 })
 
+if 'DYNO' in os.environ:
+    app.scripts.append_script({
+        'external_url': 'https://cdn.rawgit.com/chriddyp/ca0d8f02a1659981a0ea7f013a378bbd/raw/e79f3f789517deec58f41251f7dbb6bee72c44ab/plotly_ga.js'  # noqa: E501
+    })
 
 app.layout = html.Div([
     html.Div(
@@ -65,7 +68,7 @@ app.layout = html.Div([
                             # html.Button('Back', id='back'),
                             html.Button('Next', id='next')
                         ],
-                        className='two columns offset-by-two'
+                        className='one column offset-by-three'
                     ),
                     dcc.Markdown(
                         id='text',
@@ -276,23 +279,6 @@ def advance_slider(slider):
 
     return slider
 
-# @app.callback(Output('hidden-slider-value-2', 'children'),
-#               state=[State('slider', 'value')],
-#               events=[Event('back', 'click')])
-# def retract_slider(slider):
-#     if slider > 0:
-#         slider -= 1
-#
-#     slider_position = slider
-#     #print(slider_position)
-#     return ''
-#
-# @app.callback(Output('slider', 'value'),
-#               [Input('hidden-slider-value', 'children')])
-# def update_slider(hidden_value):
-#     print(slider_position)
-#     return slider_position
-#
 
 # Run the Dash app
 if __name__ == '__main__':
