@@ -407,4 +407,4 @@ def advance_slider(back, nxt, slider):
 
 # Run the Dash app
 if __name__ == '__main__':
-    app.server.run(threaded=True)
+    app.server.run()
