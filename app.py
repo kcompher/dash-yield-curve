@@ -7,6 +7,7 @@ import numpy as np
 import plotly.plotly as py
 
 import flask
+from flask_cors import CORS
 import dash
 from dash.dependencies import Input, Output, State, Event
 import dash_core_components as dcc
@@ -18,6 +19,7 @@ app = dash.Dash(
     __name__,
     url_base_pathname='/dash/gallery/yield-curve/')
 server = app.server
+CORS(server)
 
 app.css.append_css({
     'external_url': (
