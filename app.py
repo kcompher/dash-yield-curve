@@ -15,11 +15,8 @@ import dash_html_components as html
 
 
 # Setup the app
-app = dash.Dash(
-    __name__,
-    url_base_pathname='/dash/gallery/yield-curve/')
+app = dash.Dash(__name__)
 server = app.server
-CORS(server)
 
 app.css.append_css({
     'external_url': (
@@ -32,8 +29,6 @@ if 'DYNO' in os.environ:
     app.scripts.append_script({
         'external_url': 'https://cdn.rawgit.com/chriddyp/ca0d8f02a1659981a0ea7f013a378bbd/raw/e79f3f789517deec58f41251f7dbb6bee72c44ab/plotly_ga.js'  # noqa: E501
     })
-    app.config.routes_pathname_prefix = '/dash/gallery/yield-curve/'
-    app.config.requests_pathname_prefix = 'https://dash-yield-curve.herokuapp.com/dash/gallery/yield-curve/'
 
 
 app.layout = html.Div([
